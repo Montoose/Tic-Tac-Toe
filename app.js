@@ -17,16 +17,40 @@ const gameBoard = (function () {
         board = [];
     }
 
+    const checkForWinner = () => {
+        // Check for row winner
+        for (i = 0; i < rows; i++) {
+            let a = board[i][0];
+            let b = board[i][1];
+            let c = board[i][2];
+            if (a == b && a == c && a != 0) return true;
+        }
+
+        // Check for column winner
+        for (i=0; i < rows; i++) {
+            let a = board[0][i];
+            let b = board[1][i];
+            let c = board[2][i];
+            if (a == b && a == c && a != 0) return true;
+        }
+
+        // Check for diagonal winner
+        if (board[0][0] == board[1][1] && board[0][0] == board[2][2] && board[0][0] != 0) return true;
+        else if (board[2][0] == board[1][1] && board[2][0] == board[0][2] && board[2][0] != 0) return true;
+
+        return false;
+    }
+
     return {
         board,
         setup,
         reset,
+        checkForWinner,
     }
 })();
 
 // This function creates a player for the game.
 function player () {
-    let mark = 1;
     
     const makeMove = (mark) => {
         let playerChoice = Number(prompt("Make your move: (0-8"));
@@ -74,29 +98,48 @@ function computer () {
 }
 
 const gameController = (function () {
-    let activePlayer = true;
+    let firstPlayerScore = 0;
+    let secondPlayerScore = 0;
+    let player1 = new player();
+    let player2 = new player();
+    let activePlayer = player1;
+    let turn = 0;
 
-    const switchActivePlayer = () => {
-        if (activePlayer = true) activePlayer = false;
+    const playRound = () => {
+        while (turn < 10) {
+            activePlayer.makeMove(1);
+            if (gameBoard.checkForWinner() == true) {
+                console.log("This happned");
+                break;
+            }
+            else {
+                turn++
+                this.setActivePlayer;
+            } 
+        }
+    }
+    
+    const setActivePlayer = () => {
+        if (activePlayer == player1) activePlayer = player2;
+        else activePlayer = player1;
+    }
+
+    const resetScore = () => {
+        firstPlayerScore = 0;
+        secondPlayerScore = 0;
+        turn = 0;
+        winner = false;
     }
 
     return {
-        switchActivePlayer,
+        playRound,
+        resetScore,
+        setActivePlayer,
     }
 })
 
-function roundController (player1, player2) {
-    player1.makeMove();
-    checkWinner()
-    player2.makeMove();
-}
-
-
-
-
-
 gameBoard.setup();
-let matthew = new player();
-let ricky = new computer();
-matthew.makeMove();
-ricky.makeMove();
+
+
+let game = gameController();
+game.playRound();
