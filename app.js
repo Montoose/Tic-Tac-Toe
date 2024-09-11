@@ -1,3 +1,4 @@
+// This function handles the game board for the game.
 const gameBoard = (function () {
     let board = [];
     rows = 3;
@@ -23,37 +24,39 @@ const gameBoard = (function () {
     }
 })();
 
+// This function creates a player for the game.
 function player () {
+    let mark = 1;
     
-    const makeMove = () => {
+    const makeMove = (mark) => {
         let playerChoice = Number(prompt("Make your move: (0-8"));
         switch (playerChoice) {
             case 0:
-                if (gameBoard.board[0][0] != 1) gameBoard.board[0][0] = 1;
+                if (gameBoard.board[0][0] == 0) gameBoard.board[0][0] = mark;
                 break;
             case 1:
-                if (gameBoard.board[0][1] != 1) gameBoard.board[0][1] = 1;
+                if (gameBoard.board[0][1] == 0) gameBoard.board[0][1] = mark;
                 break;
             case 2:
-                if (gameBoard.board[0][2] != 1) gameBoard.board[0][2] = 1;
+                if (gameBoard.board[0][2] == 0) gameBoard.board[0][2] = mark;
                 break;
             case 3:
-                if (gameBoard.board[1][0] != 1) gameBoard.board[1][0] = 1;
+                if (gameBoard.board[1][0] == 0) gameBoard.board[1][0] = mark;
                 break;
             case 4:
-                if (gameBoard.board[1][1] != 1) gameBoard.board[1][1] = 1;
+                if (gameBoard.board[1][1] == 0) gameBoard.board[1][1] = mark;
                 break;
             case 5:
-                if (gameBoard.board[1][2] != 1) gameBoard.board[1][2] = 1;
+                if (gameBoard.board[1][2] == 0) gameBoard.board[1][2] = mark;
                 break;
             case 6:
-                if (gameBoard.board[2][0] != 1) gameBoard.board[2][0] = 1;
+                if (gameBoard.board[2][0] == 0) gameBoard.board[2][0] = mark;
                 break;
             case 7:
-                if (gameBoard.board[2][1] != 1) gameBoard.board[2][1] = 1;
+                if (gameBoard.board[2][1] == 0) gameBoard.board[2][1] = mark;
                 break;
             case 8:
-                if (gameBoard.board[2][2] != 1) gameBoard.board[2][2] = 1;
+                if (gameBoard.board[2][2] == 0) gameBoard.board[2][2] = mark;
                 break;
         }
         console.log(gameBoard.board);
@@ -82,8 +85,17 @@ const gameController = (function () {
     }
 })
 
-gameBoard.setup();
+function roundController (player1, player2) {
+    player1.makeMove();
+    checkWinner()
+    player2.makeMove();
+}
 
+
+
+
+
+gameBoard.setup();
 let matthew = new player();
 let ricky = new computer();
 matthew.makeMove();
